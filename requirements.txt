@@ -9,4 +9,3 @@ requests
 gunicorn
 python-dotenv
 APIcalledbyFlask
-GCP
