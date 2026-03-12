@@ -1,11 +1,2 @@
 Flask
 firebase-admin
-google-cloud-firestore
-google-cloud-storage
-google-auth
-google-auth-oauthlib
-google-auth-httplib2
-requests
-gunicorn
-python-dotenv
-GCP
