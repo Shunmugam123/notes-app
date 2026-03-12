@@ -4,7 +4,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 app = Flask(__name__)
-APP_VERSION = "1.0.0"
+APP_VERSION = "2.0.0"
 
 # Initialize Firestore
 # It's recommended to set the GOOGLE_APPLICATION_CREDENTIALS environment variable
