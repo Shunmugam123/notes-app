@@ -1,0 +1,17 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: gemini-notes-app-pipeline
+description: Main application delivery pipeline
+serialPipeline:
+  stages:
+    - targetId: dev-cloudrun-target
+      profiles: []
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: dev-cloudrun-target
+description: Cloud Run development target
+run:
+  location: projects/${PROJECT_ID}/locations/us-central1

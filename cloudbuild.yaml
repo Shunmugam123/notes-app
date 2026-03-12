@@ -7,22 +7,20 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
 
-# Step 3: Deploy the image to Cloud Run
-# Replace [SERVICE_NAME] with your desired Cloud Run service name
-# Replace [REGION] with your desired GCP region (e.g., us-central1)
+
+
+# Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
-  - 'run'
   - 'deploy'
-  - 'gemini-notes-app' # Replace with your service name
-  - '--image'
-  - 'gcr.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
-  - '--region'
-  - 'us-central1' # Replace with your desired region
-  - '--platform'
-  - 'managed'
-  - '--allow-unauthenticated' # Or --no-allow-unauthenticated if authentication is required
+  - 'releases'
+  - 'create'
+  - 'rel-${BUILD_ID}' # Unique release name
+  - '--delivery-pipeline=gemini-notes-app-pipeline' # Name of the delivery pipeline
+  - '--region=us-central1' # Region where the delivery pipeline is
+  - '--images=gemini-notes-app=gcr.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
+  - '--description=Cloud Build automated release'
 
 images:
 - 'gcr.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
