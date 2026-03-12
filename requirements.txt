@@ -8,5 +8,4 @@ google-auth-httplib2
 requests
 gunicorn
 python-dotenv
-firestore
 GCP
