@@ -10,6 +10,7 @@ RUN apt-get update && \
         build-essential \
         libcairo2-dev \
         libdbus-1-dev \
+        libgirepository1.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file and install dependencies
