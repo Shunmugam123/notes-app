@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: notes-app
+build:
+  artifacts:
+  - image: gcr.io/${GOOGLE_CLOUD_PROJECT}/gemini-notes-app # Using GOOGLE_CLOUD_PROJECT for project ID
+    docker:
+      dockerfile: Dockerfile
+      context: .
+deploy:
+  cloudrun:
+    projectid: ${GOOGLE_CLOUD_PROJECT}
+    region: us-central1
+    service: gemini-notes-app
+    # If your Cloud Run service requires specific environment variables, memory,
+    # CPU, or other configurations, they can be added here.
+    # For example:
+    # concurrency: 80
+    # memory: 512Mi
+    # env:
+    # - name: MY_VARIABLE
+    #   value: "my_value"
