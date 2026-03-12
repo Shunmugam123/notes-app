@@ -6,3 +6,4 @@ google-auth
 google-auth-oauthlib
 GCP
 API
+firestoreDB
