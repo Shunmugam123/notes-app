@@ -9,6 +9,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         libcairo2-dev \
+        libdbus-1-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file and install dependencies
