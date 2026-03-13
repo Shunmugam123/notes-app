@@ -1,26 +1,35 @@
 steps:
 # Step 1: Build the Docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA', '.']
+  args:
+    [
+      'build',
+      '-t',
+      'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA',
+      '.'
+    ]
 
-# Step 2: Push the Docker image to Google Container Registry
+# Step 2: Push the Docker image to Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA']
-
-
+  args:
+    [
+      'push',
+      'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
+    ]
 
 # Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
-  - 'deploy'
-  - 'releases'
-  - 'create'
-  - 'rel-${BUILD_ID}' # Unique release name
-  - '--delivery-pipeline=gemini-notes-app-pipeline' # Name of the delivery pipeline
-  - '--region=us-central1' # Region where the delivery pipeline is
-  - '--images=gemini-notes-app=gcr.io/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
-  - '--description=Cloud Build automated release'
+    - 'deploy'
+    - 'releases'
+    - 'create'
+    - 'rel-${BUILD_ID}'
+    - '--delivery-pipeline=gemini-notes-app-pipeline'
+    - '--region=us-central1'
+    - '--skaffold-file=skaffold.yaml'
+    - '--images=gemini-notes-app=us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
+    - '--description=Cloud Build automated release'
 
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
