@@ -16,7 +16,7 @@ steps:
   - 'deploy'
   - 'releases'
   - 'create'
-  - 'rel-${_SHORT_SHA}' # Unique release name
+  - 'rel-${BUILD_ID}' # Unique release name
   - '--delivery-pipeline=gemini-notes-app-pipeline' # Name of the delivery pipeline
   - '--region=us-central1' # Region where the delivery pipeline is
   - '--images=gemini-notes-app=gcr.io/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
@@ -27,6 +27,3 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-
-substitutions:
-  _SHORT_SHA: ${COMMIT_SHA:0:7}
