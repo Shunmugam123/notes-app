@@ -4,7 +4,7 @@ metadata:
   name: notes-app
 build:
   artifacts:
-  - image: gcr.io/${GOOGLE_CLOUD_PROJECT}/gemini-notes-app # Using GOOGLE_CLOUD_PROJECT for project ID
+  - image: gar.io/${GOOGLE_CLOUD_PROJECT}/gemini-notes-app # Using GOOGLE_CLOUD_PROJECT for project ID
     docker:
       dockerfile: Dockerfile
       context: .
