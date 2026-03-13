@@ -1,5 +1,5 @@
 # Use a lightweight Python image as the base
-FROM python:3.9-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,10 +13,12 @@ RUN apt-get update && \
         libgirepository1.0-dev \
         pkg-config \
         libglib2.0-dev \
+        python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file and install dependencies
 COPY requirements.txt .
+RUN python3 -m pip install --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application code to the container
@@ -34,4 +36,4 @@ EXPOSE 8080
 # Command to run the application
 # Use Gunicorn or another production-ready WSGI server in a real application
 # For simplicity, we'll use Flask's built-in server here, but it's not recommended for production
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
