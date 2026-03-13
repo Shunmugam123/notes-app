@@ -3,6 +3,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA', '.']
 
+# Debugging step: Print the image name
+- name: 'bash'
+  args: ['-c', 'echo "Attempting to push image: us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA"']
+
 # Step 2: Push the Docker image to Google Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
