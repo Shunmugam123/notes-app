@@ -1,15 +1,11 @@
 steps:
 # Step 1: Build the Docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA', '.']
-
-# Debugging step: Print the image name
-- name: 'bash'
-  args: ['-c', 'echo "Attempting to push image: us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA"']
+  args: ['build', '-t', 'us-central1-docker.pkg/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA', '.']
 
 # Step 2: Push the Docker image to Google Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
 
 
 
@@ -27,7 +23,7 @@ steps:
   - '--description=Cloud Build automated release'
 
 images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
+- 'us-central1-docker.pkg/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
