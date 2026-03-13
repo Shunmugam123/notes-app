@@ -1,16 +1,16 @@
 steps:
 # Step 1: Build the Docker image
-- name: 'gar.io/cloud-builders/docker'
-  args: ['build', '-t', 'gar.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA', '.']
 
 # Step 2: Push the Docker image to Google Container Registry
-- name: 'gar.io/cloud-builders/docker'
-  args: ['push', 'gar.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA']
 
 
 
 # Step 3: Create a Cloud Deploy release
-- name: 'gar.io/google.com/cloudsdktool/cloud-sdk'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
   - 'deploy'
@@ -19,11 +19,11 @@ steps:
   - 'rel-${BUILD_ID}' # Unique release name
   - '--delivery-pipeline=gemini-notes-app-pipeline' # Name of the delivery pipeline
   - '--region=us-central1' # Region where the delivery pipeline is
-  - '--images=gemini-notes-app=gar.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
+  - '--images=gemini-notes-app=gcr.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
   - '--description=Cloud Build automated release'
 
 images:
-- 'gar.io/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/gemini-notes-app:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
