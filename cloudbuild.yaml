@@ -17,14 +17,7 @@ steps:
       'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
     ]
 
-# Step 3: Echo the release name for debugging
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - 'echo "Generated release name: rel-${SHORT_SHA}"'
-
-# Step 4: Create a Cloud Deploy release
+# Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
