@@ -24,7 +24,7 @@ steps:
     - 'deploy'
     - 'releases'
     - 'create'
-    - 'rel-${BUILD_ID}'
+    - 'rel-${BUILD_ID:0:32}'
     - '--delivery-pipeline=gemini-notes-app-pipeline'
     - '--region=us-central1'
     - '--skaffold-file=skaffold.yaml'
