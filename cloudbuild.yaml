@@ -24,7 +24,7 @@ steps:
     - 'deploy'
     - 'releases'
     - 'create'
-    - '$_RELEASE_NAME'
+    - 'rel-YYYYMMDD-HHMMSS'
     - '--delivery-pipeline=gemini-notes-app-pipeline'
     - '--region=us-central1'
     - '--skaffold-file=skaffold.yaml'
