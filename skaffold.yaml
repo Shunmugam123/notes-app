@@ -4,13 +4,13 @@ metadata:
   name: notes-app
 build:
   artifacts:
-  - image: gcr.io/${GOOGLE_CLOUD_PROJECT}/notes-app/gemini-notes-app # Using GOOGLE_CLOUD_PROJECT for project ID
+  - image: gcr.io/${PROJECT_ID}/notes-app/gemini-notes-app # Using PROJECT_ID for project ID
     docker:
       dockerfile: Dockerfile
       context: .
 deploy:
   cloudrun:
-    projectid: ${GOOGLE_CLOUD_PROJECT}
+    projectid: ${PROJECT_ID}
     region: us-central1
     service: gemini-notes-app
     # If your Cloud Run service requires specific environment variables, memory,
