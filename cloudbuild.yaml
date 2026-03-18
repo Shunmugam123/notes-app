@@ -23,7 +23,7 @@ steps:
   args:
     - '-c'
     - |
-      sed -i "s|projects/$${PROJECT_ID}|projects/${PROJECT_ID}|g" clouddeploy.yaml
+      sed -i "s/\${PROJECT_ID}/$PROJECT_ID/g" clouddeploy.yaml
       gcloud deploy releases create rel-${SHORT_SHA} \
         --delivery-pipeline=gemini-notes-app-pipeline \
         --region=us-central1 \
