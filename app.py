@@ -16,13 +16,15 @@ else:
     # This path is for local testing if GOOGLE_APPLICATION_CREDENTIALS is not set
     # In a real app, you'd handle credentials more securely
     print("WARNING: GOOGLE_APPLICATION_CREDENTIALS environment variable not set.")
-    print("Attempting to initialize Firebase without explicit credentials.")
+    print("Attempting to initialize Firebase with default credentials (e.g., when running on GCP).")
     try:
-        # Attempt to initialize with default credentials (e.g., when running on GCP)
         cred = credentials.ApplicationDefault()
     except Exception as e:
-        print(f"Could not initialize Firebase with ApplicationDefault: {e}")
-        print("Please ensure GOOGLE_APPLICATION_CREDENTIALS is set or you are running on GCP.")
+        print(f"ERROR: Could not initialize Firebase with ApplicationDefault: {e}")
+        print("To fix this:")
+        print("1. Ensure your Google Cloud project has a Firestore database enabled.")
+        print("2. If running locally, set the GOOGLE_APPLICATION_CREDENTIALS environment variable to the path of your service account key file.")
+        print(f"   Visit https://console.cloud.google.com/datastore/setup?project={os.getenv('GOOGLE_CLOUD_PROJECT', 'your-project-id')} to enable Firestore.")
         cred = None # Set cred to None if initialization fails
 
 if cred:
@@ -32,7 +34,8 @@ if cred:
 else:
     db = None
     notes_collection = None
-    print("Firestore not initialized. Notes functionality will be disabled.")
+    print("CRITICAL: Firestore not initialized. Notes functionality will be disabled.")
+    print("Please ensure you have set up Firestore for your project.")
 
 
 @app.route('/')
