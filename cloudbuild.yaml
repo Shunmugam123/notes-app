@@ -23,8 +23,8 @@ steps:
   args:
     - '-c'
     - |
-      sed -i "s/\$PROJECT_ID/$PROJECT_ID/g" clouddeploy.yaml
-      sed -i "s/\$PROJECT_ID/$PROJECT_ID/g" skaffold.yaml
+      sed -i "s#\$PROJECT_ID#$PROJECT_ID#g" clouddeploy.yaml
+      sed -i "s#\$PROJECT_ID#$PROJECT_ID#g" skaffold.yaml
       gcloud deploy releases create rel-${SHORT_SHA} \
         --project=$PROJECT_ID \
         --delivery-pipeline=gemini-notes-app-pipeline \
