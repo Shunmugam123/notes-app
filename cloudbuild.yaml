@@ -20,15 +20,13 @@ steps:
 # Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
-  env:
-    - 'PROJECT_ID=$_PROJECT_ID'
   args:
     - '-c'
     - |
-      echo "PROJECT_ID is: $PROJECT_ID"
-      sed -i "s/\$${PROJECT_ID}/$PROJECT_ID/g" clouddeploy.yaml
-      sed -i "s/\$${PROJECT_ID}/$PROJECT_ID/g" skaffold.yaml
-      cat clouddeploy.yaml
+      # Ensure PROJECT_ID is set
+      echo "Using project: $PROJECT_ID"
+
+      # Directly use $PROJECT_ID in gcloud command; no sed replacement needed
       gcloud deploy releases create rel-${SHORT_SHA} \
         --project=$PROJECT_ID \
         --delivery-pipeline=gemini-notes-app-pipeline \

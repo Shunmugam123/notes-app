@@ -14,4 +14,4 @@ metadata:
   name: dev-cloudrun-target
 description: Cloud Run development target
 run:
-  location: projects/${PROJECT_ID}/locations/us-central1
+  location: us-central1   # just the region, not projects/${PROJECT_ID}
