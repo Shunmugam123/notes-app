@@ -23,10 +23,9 @@ steps:
   args:
     - '-c'
     - |
-      # Ensure PROJECT_ID is set
-      echo "Using project: $PROJECT_ID"
-
-      # Directly use $PROJECT_ID in gcloud command; no sed replacement needed
+      sed -i "s/\${PROJECT_ID}/$PROJECT_ID/g" clouddeploy.yaml
+      sed -i "s/\${PROJECT_ID}/$PROJECT_ID/g" skaffold.yaml
+      cat clouddeploy.yaml
       gcloud deploy releases create rel-${SHORT_SHA} \
         --project=$PROJECT_ID \
         --delivery-pipeline=gemini-notes-app-pipeline \
