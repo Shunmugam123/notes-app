@@ -28,11 +28,11 @@ steps:
       sed -i "s#\$PROJECT_ID#$PROJECT_ID#g" clouddeploy.yaml
       sed -i "s#\$PROJECT_ID#$PROJECT_ID#g" skaffold.yaml
       gcloud deploy releases create rel-${SHORT_SHA} \
-        --project=$PROJECT_ID \
+        --project=${PROJECT_ID} \
         --delivery-pipeline=gemini-notes-app-pipeline \
         --region=us-central1 \
         --skaffold-file=skaffold.yaml \
-        --images=gemini-notes-app=us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA \
+        --images=gemini-notes-app=us-central1-docker.pkg.dev/${PROJECT_ID}/notes-app/gemini-notes-app:$COMMIT_SHA \
         --description="Cloud Build automated release"
 
 images:
