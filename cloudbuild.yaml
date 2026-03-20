@@ -17,6 +17,17 @@ steps:
       'us-central1-docker.pkg.dev/$PROJECT_ID/notes-app/gemini-notes-app:$COMMIT_SHA'
     ]
 
+# Step 2.5: Substitute placeholders in Cloud Deploy and Skaffold configurations
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      set -x
+      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" clouddeploy.yaml
+      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" skaffold.yaml
+      sed -i "s#GEMINI_PROJECT_NUMBER_PLACEHOLDER#$PROJECT_NUMBER#g" clouddeploy.yaml
+
 # Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
@@ -25,9 +36,6 @@ steps:
     - |
       set -x
       printenv PROJECT_ID
-      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" clouddeploy.yaml
-      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" skaffold.yaml
-      sed -i "s#GEMINI_PROJECT_NUMBER_PLACEHOLDER#$PROJECT_NUMBER#g" clouddeploy.yaml # Changed hardcoded number to PROJECT_NUMBER
       gcloud deploy releases create rel-${SHORT_SHA} \
         --project=${PROJECT_ID} \
         --delivery-pipeline=gemini-notes-app-pipeline \
