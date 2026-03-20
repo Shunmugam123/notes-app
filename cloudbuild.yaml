@@ -27,6 +27,7 @@ steps:
       printenv PROJECT_ID
       sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" clouddeploy.yaml
       sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" skaffold.yaml
+      sed -i "s#GEMINI_PROJECT_NUMBER_PLACEHOLDER#189280232523#g" clouddeploy.yaml
       gcloud deploy releases create rel-${SHORT_SHA} \
         --project=${PROJECT_ID} \
         --delivery-pipeline=gemini-notes-app-pipeline \

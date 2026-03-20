@@ -14,4 +14,4 @@ metadata:
   name: dev-cloudrun-target
 description: Cloud Run development target
 run:
-  location: projects/GEMINI_PROJECT_ID_PLACEHOLDER/locations/us-central1
+  location: projects/GEMINI_PROJECT_NUMBER_PLACEHOLDER/locations/us-central1
