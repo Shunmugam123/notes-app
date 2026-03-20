@@ -24,9 +24,15 @@ steps:
     - '-c'
     - |
       set -x
-      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" clouddeploy.yaml
-      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" skaffold.yaml
+      printenv PROJECT_NUMBER
+      if [ -z "$PROJECT_NUMBER" ]; then
+        echo "PROJECT_NUMBER is not set. Exiting."
+        exit 1
+      fi
+      sed -i "s#GEMINI_PROJECT_ID_PLACEUOLDER#$PROJECT_ID#g" clouddeploy.yaml && \
+      sed -i "s#GEMINI_PROJECT_ID_PLACEHOLDER#$PROJECT_ID#g" skaffold.yaml && \
       sed -i "s#GEMINI_PROJECT_NUMBER_PLACEHOLDER#$PROJECT_NUMBER#g" clouddeploy.yaml
+      cat clouddeploy.yaml
 
 # Step 3: Create a Cloud Deploy release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
